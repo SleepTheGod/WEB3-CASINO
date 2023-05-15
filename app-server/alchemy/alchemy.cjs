@@ -1,4 +1,9 @@
-const { Network, Alchemy, Wallet } = require("alchemy-sdk");
+const {
+	Network,
+	Alchemy,
+	Wallet,
+	Utils,
+} = require("alchemy-sdk");
 const { ALCHEMY_API_KEY } = process.env;
 
 const settings = {
@@ -23,4 +28,9 @@ const createWallet = () => {
 	};
 };
 
-module.exports = { createWallet };
+const checkBalance = async (address) => {
+	const balance = await alchemy.core.getBalance(address, "latest");
+	return Utils.formatEther(balance);
+};
+
+module.exports = { createWallet, alchemy, checkBalance };

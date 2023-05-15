@@ -2,3 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
+/* React toastify */
+.Toastify__toast {
+	background-color: #1f2937;
+	color: #fff;
+}
+
+.Toastify__close-button--light {
+	color: #6b7280;
+}
+
+.Toastify__progress-bar-theme--light {
+	background: #34d399 !important;
+}
+
+.Toastify__toast-container {
+	position: relative;
+	margin-left: auto;
+	z-index: 20;
+}
+
+.Toastify {
+	position: absolute;
+	width: calc(100% - 8rem);
+	height: auto;
+}
+
+.dropdown:focus-within .dropdown-menu {
+	opacity: 1;
+	transform: translate(0) scale(1);
+	visibility: visible;
+}
