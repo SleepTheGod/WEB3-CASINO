@@ -3,7 +3,6 @@ import {
 	signInWithEmailAndPassword,
 	signOut,
 } from "firebase/auth";
-
 import { auth } from "./firebase";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -23,8 +22,8 @@ const signIn = async (email, password) => {
 				toast(`Welcome back ${res.data.username}`); // This data will be the first name of the user (welcome message)
 			});
 		} catch (err) {
-            console.log(`Axios error @ signIn(): ${err}`);
-        }
+			console.log(`Axios error @ signIn(): ${err}`);
+		}
 	} catch (err) {
 		console.log(err);
 	}
@@ -85,17 +84,17 @@ const postTester = async () => {
 	} catch {}
 };
 
-const checkBalance = async (address) => {
+const checkBalance = async (uid) => {
 	let balance;
 	try {
 		await axios({
 			method: "post",
-			url: "http://localhost:3000/firestore/check-balance",
+			url: "http://localhost:3000/firestore/check-account-balance",
 			data: {
-				address: address,
+				userID: uid,
 			},
 		}).then((res) => {
-			balance = res.data;
+			balance = res.data.balance;
 		});
 	} catch (err) {
 		console.log(err);
@@ -104,23 +103,66 @@ const checkBalance = async (address) => {
 	return balance;
 };
 
-const startBalanceSocket = async (address) => {
+const requestWithdrawal = async (uid, toAddress, ammount) => {
+	try {
+		await axios({
+			method: "post",
+			url: "http://localhost:3000/alchemy/request-withdrawal",
+			data: {
+				userID: uid,
+				toAddress: toAddress,
+				ammount: ammount,
+			},
+		}).then((res) => {
+			toast(`Withdrawal of ${ammount} is processing!`);
+		});
+	} catch (err) {
+		console.log(err);
+	}
+};
+
+const startDepositSocket = async (uid, address) => {
 	let test;
 	try {
 		await axios({
 			method: "post",
-			url: "http://localhost:3000/firestore/start-balance-socket",
+			url: "http://localhost:3000/alchemy/start-deposit-socket",
 			data: {
-				address: address,
+                userID: uid,
+				deposit_address: address,
 			},
 		}).then((res) => {
-			test = res.data;
+            checkBalance(uid).then((response) => {
+                test = response
+                console.log(response);
+            })
+			toast(`deposit of ${res.data.value} ETH confirmed!`);
 		});
 	} catch (err) {
 		console.log(err);
 	}
 
 	return test;
+};
+
+const startWithdrawalSocket = async (toAddress, address) => {
+	let data;
+	try {
+		await axios({
+			method: "post",
+			url: "http://localhost:3000/alchemy/start-withdrawal-socket",
+			data: {
+				deposit_address: address,
+				withdrawal_ddress: toAddress,
+			},
+		}).then((res) => {
+			data = res.data;
+			toast(`withdraw of ${res.data.ammount} ETH confirmed`);
+		});
+	} catch (err) {
+		console.log(err);
+	}
+	return data;
 };
 
 const logOut = () => {
@@ -132,7 +174,9 @@ export {
 	signUp,
 	logOut,
 	postTester,
-	startBalanceSocket,
+	startDepositSocket,
 	checkBalance,
 	getData,
+	requestWithdrawal,
+	startWithdrawalSocket,
 };

@@ -2,15 +2,23 @@ const express = require("express");
 const compression = require("compression");
 const path = require("path");
 const { firestoreRouter } = require("./routes/firestore.cjs");
+const { alchemyRouter } = require("./routes/alchemy.cjs");
 
 const WebSocket = require("ws");
 
 const app = express();
 
+//  Compression
 app.use(compression({ threshold: 0 }));
-app.use("/", express.static(path.join(__dirname, "../app-client/dist/")));
-app.use("/firestore", firestoreRouter);
 
+//  Serve dist folder (compiled and minified with Vite)
+app.use("/", express.static(path.join(__dirname, "../app-client/dist/")));
+
+//  Router for firestore database
+app.use("/firestore", firestoreRouter);
+app.use("/alchemy", alchemyRouter);
+
+//  Serve files (index.html entry)
 app.get("/*", (_req, res) => {
 	res.sendFile(path.join(__dirname, "../app-client/dist", "index.html"));
 });

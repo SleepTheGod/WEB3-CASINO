@@ -1,5 +1,16 @@
 Plan user model (user info, wallet, transactions)
 create loading states fot necessaery pages and components
 
+Change deposit socket to re run after initial deposit
+
+(Firestore router) figure out new balance system. Store balance in db instead of checking blockchain (still use websockets for tracking).
+
+(Firestore router) move "/check-balance" route to a new router (not using firebase)
+
+(app.jsx) Dont check balance and websockets in useEffect / Sort out after balance changes 
+
+(app.jsx) Change prop workflow. (maybe worth using context (research))
+
+// Games
 Reseach Packages:
 https://www.npmjs.com/package/simply-blackjack

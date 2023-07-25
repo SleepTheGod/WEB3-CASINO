@@ -4,7 +4,7 @@ import { logOut } from "../../firebase/handles";
 
 function MobileDropDown(props) {
 	return (
-		<div class="min-h-screen py-6 flex flex-col justify-center sm:py-12">
+		<div class="py-6 flex flex-col justify-center sm:py-12">
 			<div class="flex items-center justify-center">
 				<div class=" relative inline-block text-left dropdown">
 					<span class="rounded-md shadow-sm ml-2">

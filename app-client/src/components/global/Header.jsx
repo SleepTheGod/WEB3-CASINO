@@ -8,15 +8,15 @@ function Header(props) {
 		query: "(max-width: 600px)",
 	});
 	return (
-		<div className="w-full h-[calc(5rem-1px)] bg-gray-900 fixed border-b-2 border-gray-800 flex items-center px-6 z-30">
+		<div className="w-full h-[calc(5rem-1px)] bg-gray-900 fixed border-b-2 border-gray-800 flex items-center px-6 z-40">
 			<Link href="/">
 				<div className="font-bold text-3xl text-white flex items-center">
-					COIN<span className="text-emerald-400">RAF</span>
+					BLOCK<span className="text-emerald-400">BET</span>
 				</div>
 			</Link>
 			{props.user ? (
 				<div className={isMobile ? "ml-auto" : "m-auto"}>
-					<Balance user={props.user} address={props.address} />
+					<Balance balance={props.balance} balanceLoading={props.balanceLoading} />
 				</div>
 			) : (
 				<div className="m-auto"></div>

@@ -1,7 +1,6 @@
 import { defineConfig } from "vite";
 import preact from "@preact/preset-vite";
 import path from "path";
-import { ViteMinifyPlugin } from "vite-plugin-minify";
 import legacy from "@vitejs/plugin-legacy";
 
 // https://vitejs.dev/config/
@@ -23,8 +22,8 @@ export default defineConfig({
 		minify: true,
 	},
 	build: {
-		minify: true,
+		minify: true, 
 	},
-	root: "./app-client", // Update the root property to point to your client folder
+	root: "./app-client", //Points to client folder
 	base: "/",
 });

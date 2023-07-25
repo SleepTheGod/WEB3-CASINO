@@ -24,9 +24,10 @@ function SideBar(props) {
 									<FontAwesomeIcon icon={faDice} size="xl" />
 								</div>
 							</Link>
+                            <div className="h-1 w-[50px] bg-gray-700 mb-6"></div>
 							{props.user ? (
 								<div className="flex flex-col items-center">
-									<div className="h-1 w-[50px] bg-gray-700 mb-6"></div>
+									
 
 									<Link href="/wallet">
 										<div className="h-max pb-6 hover:text-white">

@@ -1,14 +1,19 @@
 import { useState, useEffect } from "preact/hooks";
-import { DepositPanel } from "@components";
+import { DepositPanel, WithdrawPanel } from "@components";
+import { route } from "preact-router";
 
 function Wallet(props) {
 	const [isDeposit, setIsDeposit] = useState(true);
 	const [address, setAddress] = useState("");
 	useEffect(() => {
-		if (props.address) {
-			setAddress(props.address);
+		if (props.user) {
+			if (props.address) {
+				setAddress(props.address);
+			}
+		} else {
+			route("/");
 		}
-	}, [props.address]);
+	}, [props.address, props.user]);
 	return (
 		<div className="w-full flex items-center flex-col">
 			<div className="text-lg flex font-bold">
@@ -29,7 +34,12 @@ function Wallet(props) {
 			{isDeposit ? (
 				<DepositPanel address={address} />
 			) : (
-				<div>Withdraw</div>
+				<WithdrawPanel
+					user={props.user}
+					address={address}
+					balance={props.balance}
+					setBalance={props.setBalance}
+				/>
 			)}
 		</div>
 	);

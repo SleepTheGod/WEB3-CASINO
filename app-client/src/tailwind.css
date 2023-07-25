@@ -19,7 +19,7 @@
 .Toastify__toast-container {
 	position: relative;
 	margin-left: auto;
-	z-index: 20;
+	z-index: 30;
 }
 
 .Toastify {

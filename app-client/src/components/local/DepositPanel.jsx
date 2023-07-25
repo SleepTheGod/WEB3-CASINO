@@ -1,6 +1,6 @@
 function DepositPanel(props) {
 	return (
-		<section className="bg-gray-50 dark:bg-gray-900">
+		<section className="bg-gray-50 dark:bg-gray-900 animate-in slide-in-from-left duration-500">
 			<div className="flex flex-col items-center px-6 py-8 mx-auto">
 				<a href="#" className="flex items-center mb-6">
 					<div className="font-bold text-2xl text-white">
